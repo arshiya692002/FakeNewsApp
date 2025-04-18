@@ -1,25 +1,43 @@
 from flask import Flask, request, render_template
 import joblib
+from googletrans import Translator
 
+# Initialize Flask app
 app = Flask(__name__)
+
+# Load ML model and vectorizer
 model = joblib.load('model.pkl')
 vectorizer = joblib.load('tfidf.pkl')
-accuracy = "94.6%"  # Update with actual value
+
+# Initialize translator
+translator = Translator()
 
 @app.route('/')
 def home():
-    return render_template('index.html', accuracy=accuracy)
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     news = request.form['news']
-    transformed = vectorizer.transform([news])
+
+    # Translate non-English to English
+    try:
+        translated = translator.translate(news, dest='en')
+        news_english = translated.text
+    except:
+        news_english = news  # fallback
+
+    # Predict using model
+    transformed = vectorizer.transform([news_english])
     pred = model.predict(transformed)[0]
     result = "Real" if pred == 1 else "Fake"
-    return render_template('index.html', prediction=result, accuracy=accuracy)
+
+    return render_template('index.html',
+                           prediction=result,
+                           original=news,
+                           translated=news_english)
 
 if __name__ == "__main__":
-    import os
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(debug=True)
 
 

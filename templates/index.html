@@ -10,12 +10,6 @@
       background: url('https://www.transparenttextures.com/patterns/newsprint.png');
       background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .card {
@@ -35,7 +29,6 @@
       border-radius: 12px;
       min-height: 150px;
       font-size: 16px;
-      resize: none;
     }
 
     .btn-check {
@@ -89,7 +82,7 @@
 
       <form method="POST" action="/predict">
         <div class="mb-3">
-          <textarea class="form-control" name="news" placeholder="Paste any news article here..."></textarea>
+          <textarea class="form-control" name="news" placeholder="Paste any news article here...">{{ original if original else '' }}</textarea>
         </div>
 
         <div class="text-center">
@@ -97,15 +90,15 @@
         </div>
 
         {% if prediction %}
-        <div class="text-center">
+        <div class="text-start mt-4">
+          <p><strong>Original Input:</strong><br>{{ original }}</p>
+          {% if original != translated %}
+            <p><strong>Translated to English:</strong><br>{{ translated }}</p>
+          {% endif %}
           {% if prediction == 'Real' %}
-            <div class="prediction-box real mt-4">
-              ✅ <strong>Real News</strong>
-            </div>
+            <div class="prediction-box real">✅ <strong>Real News</strong></div>
           {% else %}
-            <div class="prediction-box fake mt-4">
-              ❌ <strong>Fake News</strong>
-            </div>
+            <div class="prediction-box fake">❌ <strong>Fake News</strong></div>
           {% endif %}
         </div>
         {% endif %}
