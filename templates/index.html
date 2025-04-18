@@ -10,7 +10,7 @@
       background: url('https://www.transparenttextures.com/patterns/newsprint.png');
       background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
-      animation: fadeIn 0.7s ease-in-out;
+      animation: fadeIn 0.6s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -20,7 +20,7 @@
 
     .card {
       border-radius: 18px;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.06);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
       background-color: white;
       padding: 40px;
       margin-top: 60px;
@@ -38,10 +38,18 @@
       resize: none;
     }
 
-    .btn-check, .btn-reset {
+    .btn-check {
       border-radius: 10px;
-      padding: 10px 25px;
+      padding: 10px 30px;
       font-weight: 500;
+      margin-top: 20px;
+    }
+
+    .btn-reset {
+      border-radius: 8px;
+      padding: 8px 25px;
+      font-weight: 500;
+      margin-top: 40px;
     }
 
     .prediction-box {
@@ -83,13 +91,12 @@
         <div class="mb-3">
           <textarea class="form-control" name="news" placeholder="Paste any news article here..."></textarea>
         </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary btn-check me-2">Check</button>
-          <a href="/" class="btn btn-outline-secondary btn-reset">Reset</a>
-        </div>
-      </form>
 
-      {% if prediction %}
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-check">Check</button>
+        </div>
+
+        {% if prediction %}
         <div class="text-center">
           {% if prediction == 'Real' %}
             <div class="prediction-box real mt-4">
@@ -101,7 +108,12 @@
             </div>
           {% endif %}
         </div>
-      {% endif %}
+        {% endif %}
+
+        <div class="text-center">
+          <a href="/" class="btn btn-outline-secondary btn-reset">Reset</a>
+        </div>
+      </form>
     </div>
   </div>
 </body>
