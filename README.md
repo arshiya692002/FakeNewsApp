@@ -1,4 +1,4 @@
-Here’s an updated version of your README that reflects the use of **Render** for frontend hosting, **Python** for backend development, and **Logistic Regression** in your Jupyter notebook file:
+
 
 ---
 
